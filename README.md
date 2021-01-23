@@ -6,7 +6,7 @@ Duplicate a databank in DU with key check and overwrite confirmation
 
 2. Paste the conf file contents to the programming board using the context menu.
 
-3. Activate the board, it will output a report in the Lua text chanell that needs to be actioned.
+3. Activate the board, it will output a report in the Lua text channel that needs to be actioned.
 
 ## Actions
 Nothing will be copied until text is entered confirming what action should be taken following the report.
