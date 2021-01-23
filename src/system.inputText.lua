@@ -1,0 +1,1 @@
+handleTextCommandInput(text)
