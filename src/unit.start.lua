@@ -42,7 +42,7 @@ function duplicate(action, overwrite)
                     local newKey = k..'('..increment..')'
                     while target.hasKey(newKey) == 1 do
                         increment = increment + 1
-						newKey = k..'('..increment..')'
+                        newKey = k..'('..increment..')'
                     end
                     target.setStringValue(newKey, sourceValue)
                 end
