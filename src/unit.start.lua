@@ -3,9 +3,9 @@
 -- connect target databank with slot name "target"
 -- activate the board and follow instructions in lua channel
 function handleTextCommandInput(text)
-    if text == "confirm" then
+    if text == 'confirm' then
         duplicate(true, false)
-    elseif text == "confirm overwrite" then
+    elseif text == 'confirm overwrite' then
         duplicate(true, true)
     else
         duplicate(false,false)
@@ -27,7 +27,7 @@ function duplicate(action, overwrite)
     end
 
     local sourceKeys = json.decode(source.getKeys())
-    local duplicateKeyCount = 0
+    local duplicateKeyCount, skippedKeyCount, newKeyCount, newKeyString = 0, 0, 0, false
     
     for _, k in pairs(sourceKeys) do
 
@@ -45,6 +45,10 @@ function duplicate(action, overwrite)
                         newKey = k..'('..increment..')'
                     end
                     target.setStringValue(newKey, sourceValue)
+                    newKeyCount = newKeyCount + 1
+                    newKeyString = newKeyString == false and newKey or newKeyString..', '..newKey
+                else
+                    skippedKeyCount = skippedKeyCount + 1
                 end
             end
         else            
@@ -68,6 +72,18 @@ function duplicate(action, overwrite)
             system.print('The databank was copied and existing data was overwritten.')
         else 
             system.print('The databank was copied and existing data was untouched.')
+            if skippedKeyCount > 0 then
+                system.print(skippedKeyCount..' keys were skipped as values matched.')
+            end
+            if newKeyCount > 0 then
+                if newKeyCount == 1 then
+                    system.print('1 new key was created as to same key but different value.')
+                    system.print('Created key is: '..newKeyString)
+                else
+                    system.print(newKeyCount..' new keys were created as to same keys but different values.')
+                    system.print('Created keys are: '..newKeyString)
+                end
+            end
         end
     end
 end
